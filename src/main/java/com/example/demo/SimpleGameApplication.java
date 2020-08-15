@@ -8,22 +8,27 @@ public class SimpleGameApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(SimpleGameApplication.class, args);
+		//fetch student record based on his roll no from the database
+		Student model  = retriveStudentFromDatabase();
 
-		Score model = retriveScoreFromDatabase();
+		//Create a view : to write student details on console
+		StudentView view = new StudentView();
 
-		View view = new View();
-		Controller controller = new Controller(model, view);
+		StudentController controller = new StudentController(model, view);
+
 		controller.updateView();
-		controller.setUserScore(100);
-		controller.updateView();
 
+		//update model data
+		controller.setStudentName("John");
+
+		controller.updateView();
 	}
 
-	private static Score retriveScoreFromDatabase(){
-		Score score = new Score();
-		score.setScore(100);
-		return score;
+	private static Student retriveStudentFromDatabase(){
+		Student student = new Student();
+		student.setName("Robert");
+		student.setRollNo("10");
+		return student;
 	}
 
 }
